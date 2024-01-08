@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+    <section>
+        <form id="form">
+            <h3>Get in Touch</h3>
+            <input type="hidden" name="access_key" value="e8dd5399-af86-4b95-9769-fb05ba6f0362">
+            <input type="text" name="name" id="name" placeholder="Your Name" required><br>
+            <input type="email" name="email" id="email" placeholder="Email id" required><br>
+            <input type="text" name="Phone Number" id="phone" placeholder="Phone Number"><br>
+            <textarea name="message" id="message" cols="40" rows="5" placeholder="How Can i Help You?"></textarea>
+            <button type="submit" id="status">Send</button>
+            <div style="text-align: center;" id="result"></div>
+        </form>
+    </section>
+
+
+
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://smtpjs.com/v3/smtp.js"> </script>
+
+    <script>
+        const form = document.getElementById('form');
+        const result = document.getElementById('result');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+            result.innerHTML = "Please wait..."
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        swal("Good job!", "Your Message has been Sent!", "success");
+                    } else {
+                        console.log(response);
+                        result.innerHTML = json.message;
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                    swal("Error!", "Something went Wrong!", "error");
+                })
+                .then(function () {
+                    form.reset();
+                    setTimeout(() => {
+                        result.style.display = "none";
+                    }, 3000);
+                });
+        });
+    </script>
+</body>
+
+</html>

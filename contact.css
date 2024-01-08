@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+section {
+  margin: 30px;
+}
+form {
+  background-color: #032f46;
+  display: flex;
+  flex-direction: column;
+  padding: 2vh 10vh;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 10px;
+}
+form h3 {
+  color: white;
+  font-weight: 800;
+  font-size: 35px;
+  font-family: intet;
+}
+
+form input,
+form textarea {
+  border: 0px;
+  padding: 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  outline: none;
+}
+
+form button {
+  padding: 15px;
+  background: #259ebb;
+  border: 0px;
+  font-size: 18px;
+  outline: none;
+  cursor: pointer;
+  width: 150px;
+  margin: 20px auto 0;
+  border-radius: 10px;
+}
